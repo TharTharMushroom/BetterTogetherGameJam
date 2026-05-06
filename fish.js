@@ -143,12 +143,13 @@ class Clownfish extends Player {
   }
 
   show() {
-    // You can call super.show() or draw a custom fish shape here
-    // Custom Clownfish Look:
-    fill(255, 120, 0); // Orange
-    rect(this.x, this.y, this.w, this.h, 10);
-    fill(255); // White stripe
-    rect(this.x + 15, this.y, 10, this.h);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(clownfishImg, 0, 0, this.w, this.h);
+
+     pop();
     
     // Draw the ammo bar using the parent's logic
     super.showAmmoBar(); 
@@ -199,8 +200,13 @@ class Tuna extends Player {
   }
 
   show() {
-    fill(100);
-    rect(this.x, this.y, this.w, this.h, 10);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(tunaImg, 0, 0, this.w, this.h);
+
+     pop();
     super.showAmmoBar();
   }
 }
@@ -244,8 +250,13 @@ class Jellyfish extends Player {
   }
 
   show() {
-    fill(200, 100, 255, 180);
-    ellipse(this.x, this.y, this.w, this.h);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(jellyfishImg, 0, 0, this.w, this.h);
+
+     pop();
     super.showAmmoBar();
   }
 }
@@ -328,8 +339,13 @@ class Mackerel extends Player {
   }
 
   show() {
-    fill(150, 180, 200);
-    rect(this.x, this.y, this.w, this.h, 2);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(mackerelImg, 0, 0, this.w, this.h);
+
+     pop();
     super.showAmmoBar();
   }
 }
