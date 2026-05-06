@@ -16,6 +16,8 @@ function preload(){
     bottleImg = loadImage('art/bottle.png');
     shirtImg = loadImage('art/shirt.png');
     tireImg = loadImage('art/tire.png');
+    oilImg = loadImage('art/oilProj.png');
+    jellyShockImg = loadImage('art/jellyShock.png');
 }
 
 function setup() {
