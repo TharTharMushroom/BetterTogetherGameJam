@@ -162,7 +162,7 @@ function drawUI() {
   
   // HP Bar
   fill(255, 0, 0);
-  rect(120, 50, 200, 15);
+  rect(120, 50, 150, 15);
   fill(0, 255, 0);
   rect(120, 50, map(player.hp, 0, 100, 0, 100), 15);
 
