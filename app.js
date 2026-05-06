@@ -18,7 +18,7 @@ function preload(){
     tireImg = loadImage('art/tire.png');
     oilImg = loadImage('art/oilProj.png');
     jellyShockImg = loadImage('art/jellyShock.png');
-    bgImg = loadImage('art/background.png);
+    bgImg = loadImage('art/background.png');
 }
 
 function setup() {
