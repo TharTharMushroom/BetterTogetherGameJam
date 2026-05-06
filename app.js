@@ -8,6 +8,16 @@ let choiceOptions = [];
 let availableFishClasses;
 let gameOver = false;
 
+function preload(){
+    clownfishImg = loadImage('clownfish.png');
+    jellyfishImg = loadImage('jellyfish.png');
+    tunaImg = loadImage('tuna.png');
+    mackerelImg = loadImage('mackerel.png');
+    bottleImg = loadImage('bottle.png');
+    shirtImg = loadImage('shirt.png');
+    tireImg = loadImage('tire.png');
+}
+
 function setup() {
   let canvas = createCanvas(750, 550);
   canvas.parent('main-game');
