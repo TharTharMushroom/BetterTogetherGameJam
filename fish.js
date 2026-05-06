@@ -193,7 +193,7 @@ class Tuna extends Player {
       this.x + this.w / 2,
       this.y + this.h / 2,
       0,
-      300,
+      500,
       4
     );
     projectiles.push(p);
@@ -215,6 +215,7 @@ class TunaBlast extends Projectile {
   constructor(x, y, angle, maxDist, speed) {
     super(x, y, angle, maxDist, speed);
     this.r = 20;
+    this.damage = 10;
   }
 
   show() {
@@ -243,7 +244,7 @@ class Jellyfish extends Player {
       this.x + this.w / 2,
       this.y + this.h / 2,
       0,
-      250,
+      400,
       3
     );
     projectiles.push(p);
@@ -323,7 +324,7 @@ class Mackerel extends Player {
   constructor() {
     super();
     this.hp = 110;
-    this.shootCooldown = 15;
+    this.shootCooldown = 12;
   }
 
   shoot() {
@@ -333,7 +334,7 @@ class Mackerel extends Player {
     // Spread of 3 shots
     for (let i = -1; i <= 1; i++) {
       let angle = i * 0.2; 
-      let p = new Projectile(this.x, this.y, angle, 400, 8);
+      let p = new Projectile(this.x, this.y, angle, 600, 8);
       projectiles.push(p);
     }
   }
