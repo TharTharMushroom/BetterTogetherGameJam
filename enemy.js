@@ -101,8 +101,13 @@ class Bottle extends Enemy {
   }
 
   show() {
-    fill(100, 255, 200);
-    rect(this.x, this.y, this.w, this.h, 5);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(bottleImg, 0, 0, this.w, this.h);
+
+     pop();
     
   }
 }
@@ -135,8 +140,13 @@ class Shirt extends Enemy {
   }
 
   show() {
-    fill(255, 200, 200);
-    rect(this.x, this.y, this.w, this.h);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(shirtImg, 0, 0, this.w, this.h);
+
+     pop();
   }
 }
 
@@ -197,12 +207,12 @@ class Tire extends Enemy {
 
   show() {
     // Draw a dark grey tire
-    fill(50);
-    stroke(this.stunned ? "#00FFFF" : 0); // Blue glow if stunned
-    strokeWeight(this.stunned ? 3 : 1);
-    ellipse(this.x, this.y, this.w, this.h);
-    fill(100);
-    ellipse(this.x, this.y, 20, 20); // Center hole
-    noStroke();
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    imageMode(CENTER);
+    image(tireImg, 0, 0, this.w, this.h);
+
+     pop();
   }
 }
