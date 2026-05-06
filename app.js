@@ -162,9 +162,9 @@ function drawUI() {
   
   // HP Bar
   fill(255, 0, 0);
-  rect(70, 50, 100, 15);
+  rect(120, 50, 200, 15);
   fill(0, 255, 0);
-  rect(70, 50, map(player.hp, 0, 100, 0, 100), 15);
+  rect(120, 50, map(player.hp, 0, 100, 0, 100), 15);
 
   // --- NEW SHIELD BAR ---
   if (player.shield > 0) {
