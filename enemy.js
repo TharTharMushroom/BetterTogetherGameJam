@@ -156,6 +156,7 @@ class EnemyProjectile extends Projectile {
     super(x, y, angle, maxDist, speed); 
     this.owner = "enemy";
     this.damage = 10;
+    this.r = 10;
   }
 
   update() {
