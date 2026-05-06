@@ -36,6 +36,7 @@ function draw() {
   background("#007FFF");
     push();
     translate(0, 0);
+    tint(100);
     image(bgImg, 0, 0, width, height);
      pop();
     if (gameState === "START") {
