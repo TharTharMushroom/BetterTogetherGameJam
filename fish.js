@@ -61,14 +61,16 @@ class Player {
       if (this.frozen) return;
     let barWidth = 100;
     let barHeight = 10;
-    let xOffset = this.x - (barWidth - this.w) / 2;
+    let xOffset = this.x;
     let yOffset = this.y - 15;
-
+    push();
+    rectMode(CENTER);
     fill(50);
     rect(xOffset, yOffset, barWidth, barHeight);
     fill(0, 255, 255);
     let currentBarWidth = map(this.ammo, 0, this.maxAmmo, 0, barWidth);
     rect(xOffset, yOffset, currentBarWidth, barHeight);
+    pop();
   }
 
   show() {
