@@ -270,8 +270,13 @@ class JellyShock extends Projectile {
   }
 
   show() {
-    fill(200, 150, 255, 150);
-    circle(this.x, this.y, this.r);
+    push();
+    translate(this.x + this.r, this.y + this.r);
+
+    imageMode(CENTER);
+    image(jellyShockImg, 0, 0, this.r*2, this.r*2);
+
+     pop();
   }
 }
 
