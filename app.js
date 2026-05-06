@@ -18,6 +18,7 @@ function preload(){
     tireImg = loadImage('art/tire.png');
     oilImg = loadImage('art/oilProj.png');
     jellyShockImg = loadImage('art/jellyShock.png');
+    bgImg = loadImage('art/background.png);
 }
 
 function setup() {
@@ -33,7 +34,10 @@ function setup() {
 
 function draw() {
   background("#007FFF");
-    
+    push();
+    translate(0, 0);
+    image(bgImg, 0, 0, width, height);
+     pop();
     if (gameState === "START") {
     showStartScreen();
     return; 
