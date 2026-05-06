@@ -9,13 +9,13 @@ let availableFishClasses;
 let gameOver = false;
 
 function preload(){
-    clownfishImg = loadImage('clownfish.png');
-    jellyfishImg = loadImage('jellyfish.png');
-    tunaImg = loadImage('tuna.png');
-    mackerelImg = loadImage('mackerel.png');
-    bottleImg = loadImage('bottle.png');
-    shirtImg = loadImage('shirt.png');
-    tireImg = loadImage('tire.png');
+    clownfishImg = loadImage('art/clownfish.png');
+    jellyfishImg = loadImage('art/jellyfish.png');
+    tunaImg = loadImage('art/tuna.png');
+    mackerelImg = loadImage('art/mackerel.png');
+    bottleImg = loadImage('art/bottle.png');
+    shirtImg = loadImage('art/shirt.png');
+    tireImg = loadImage('art/tire.png');
 }
 
 function setup() {
