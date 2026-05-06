@@ -182,9 +182,13 @@ class EnemyProjectile extends Projectile {
   }
 
   show() {
-    fill(255, 50, 50);
-    noStroke();
-    circle(this.x, this.y, 8);
+    push();
+    translate(this.x + this.r, this.y + this.r);
+
+    imageMode(CENTER);
+    image(oilImg, 0, 0, this.r*2, this.r*2);
+
+     pop();
   }
 }
 
