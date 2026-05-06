@@ -153,7 +153,7 @@ class Shirt extends Enemy {
 class EnemyProjectile extends Projectile {
   constructor(x, y, angle, maxDist, speed) {
     // Ensure all 5 arguments are passed to the parent Projectile class
-    super(x, y, angle, maxDist, speed); 
+    super(x, y, angle, 800, speed); 
     this.owner = "enemy";
     this.damage = 10;
     this.r = 10;
