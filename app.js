@@ -18,6 +18,7 @@ function preload(){
     tireImg = loadImage('art/tire.png');
     oilImg = loadImage('art/oilProj.png');
     jellyShockImg = loadImage('art/jellyShock.png');
+    turtleImg = loadImage('art/turtle.png');
     bgImg = loadImage('art/background.png');
 }
 
@@ -26,7 +27,7 @@ function setup() {
   canvas.parent('main-game');
   
   player = new Clownfish();
-  availableFishClasses = [Clownfish, Tuna, Jellyfish, Mackerel];
+  availableFishClasses = [Clownfish, Tuna, Jellyfish, Mackerel, Turtle, Anglerfish];
   enemies = []; 
  
   rectMode(CENTER);
@@ -163,15 +164,11 @@ function drawUI() {
   // HP Bar
   fill(255, 0, 0);
   rect(85, 50, 150, 15);
+  fill(0, 0, 255);
+  rect(85, 50, map(player.hp+Player.shield, 0, 100, 0, 100), 15);
   fill(0, 255, 0);
   rect(85, 50, map(player.hp, 0, 100, 0, 100), 15);
 
-  // --- NEW SHIELD BAR ---
-  if (player.shield > 0) {
-    fill(0, 200, 255);
-    rect(70, 70, map(player.shield, 0, 20, 0, 100), 10);
-    text("SHIELD", 130, 78);
-  }
 }
 
 function showGameOverScreen() {

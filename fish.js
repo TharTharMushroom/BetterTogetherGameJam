@@ -1,4 +1,7 @@
 class Player {
+
+  static shield = 0;
+
   constructor() {
     this.x = 200;
     this.y = 300;
@@ -17,7 +20,7 @@ class Player {
     this.rechargeRate = 0.25; 
     this.shootCooldown = 6; 
     this.shootTimer = 0;
-    this.frozen = false;
+
   }
 
   update() {
@@ -45,8 +48,12 @@ class Player {
   }
     
     takeDamage(dmg) {
-  this.hp -= dmg;
-  if (this.hp < 0) this.hp = 0;
+    if(Player.shield > 0){
+      Player.shield -= dmg;
+    }else{
+      this.hp -= dmg;
+    }
+    if (this.hp < 0) this.hp = 0;
 }
   // Base shoot (usually overridden by subclasses)
   shoot() {
@@ -234,7 +241,7 @@ class Jellyfish extends Player {
     this.hp = 100;
     this.maxHp = 100;
 
-    this.shootCooldown = 12;
+    this.shootCooldown = 18;
     this.ammoCost = 6;
   }
 
@@ -268,7 +275,7 @@ class JellyShock extends Projectile {
   constructor(x, y, angle, maxDist, speed) {
     super(x, y, angle, maxDist, speed);
     this.effects.push(new StatusEffect("stun", 60)); // 1 second stun (60 fps)
-    this.r = 20;
+    this.r = 15;
   }
 
   show() {
@@ -285,45 +292,54 @@ class JellyShock extends Projectile {
 class Anglerfish extends Player {
   constructor() {
     super();
-    this.hp = 120;
-    this.shieldRegenTimer = 0;
-    this.shieldCooldown = 480; // About 8 seconds
-    this.shieldValue = 20;     // Amount it grants
+    this.hp = 100;
+    this.maxHp = 100;
+
+    this.shootCooldown = 16;
+    this.ammoCost = 6;
   }
 
-  update() {
-    if (!this.frozen) {
-      super.update();
-      this.provideShield(this); // Shield self if controlled by player
-    } else {
-      this.provideShield(player); // Shield the main player if a helper
-    }
-  }
+  shoot() {
+    this.ammo -= this.ammoCost;
+    this.shootTimer = this.shootCooldown;
 
-  provideShield(target) {
-    // If the target has no shield, start the recharge timer
-    if (target.shield <= 0) {
-      this.shieldRegenTimer++;
-      if (this.shieldRegenTimer >= this.shieldCooldown) {
-        target.shield = this.shieldValue;
-        this.shieldRegenTimer = 0;
-      }
-    }
+    let p = new AnglerLight(
+      this.x + this.w / 2,
+      this.y + this.h / 2,
+      0,
+      400,
+      4
+    );
+    projectiles.push(p);
   }
 
   show() {
-    // Draw the fish
-    fill(40, 40, 70);
-    rect(this.x, this.y, this.w, this.h, 8);
-    
-    // Draw the "Angler" light
-    stroke(255, 255, 150);
-    line(this.x + 10, this.y, this.x + 20, this.y - 15);
-    noStroke();
-    fill(255, 255, 200);
-    circle(this.x + 20, this.y - 15, 6);
+    push();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
 
-    if (!this.frozen) this.showAmmoBar();
+    imageMode(CENTER);
+    image(shirtImg, 0, 0, this.w, this.h);
+
+     pop();
+    super.showAmmoBar();
+  }
+}
+
+class AnglerLight extends Projectile {
+  constructor(x, y, angle, maxDist, speed) {
+    super(x, y, angle, maxDist, speed);
+    this.effects.push(new StatusEffect("vuln", 240)); 
+    this.r = 12;
+  }
+
+  show() {
+    push();
+    translate(this.x + this.r, this.y + this.r);
+
+    imageMode(CENTER);
+    image(jellyShockImg, 0, 0, this.r*2, this.r*2);
+
+     pop();
   }
 }
 
@@ -358,77 +374,30 @@ class Mackerel extends Player {
   }
 }
 
-class Seahorse extends Player {
+class Turtle extends Player {
   constructor() {
     super();
-    this.hp = 80;
-    this.burstCount = 0;
-    this.isBursting = true;
-    this.burstCooldown = 0;
-    this.shootCooldown = 120; 
+    this.hp = 110;
+    this.shootCooldown = 700;
   }
 
-  // FollowerFish calls this
   shoot() {
-    if (!this.isBursting && this.burstCooldown <= 0) {
-      this.isBursting = true;
-      this.burstCount = 20; 
-      this.burstCooldown = this.shootCooldown;
-    }
+    this.ammo -= 10;
+    this.shootTimer = this.shootCooldown;
     
-    if (this.burstCooldown > 0) this.burstCooldown--;
-
-    // Rapid fire logic: This must run every frame
-    if (this.isBursting) {
-      // frameCount can be jumpy, using a counter is safer
-      if (frameCount % 4 === 0) { 
-        let p = new Projectile(this.x, this.y, random(-0.1, 0.1), 500, 12);
-        p.owner = "player";
-        projectiles.push(p);
-        this.burstCount--;
-      }
-
-      if (this.burstCount <= 0) {
-        this.isBursting = false;
-      }
-    }
-  }
-
-  update() {
-    // If player-controlled, handle movement
-    if (!this.frozen) super.update();
-
-    // Always count down the cooldown
-    
+    // Spread of 3 shots
+    Player.shield += 10;
   }
 
   show() {
     push();
-    translate(this.x, this.y);
-    // Draw the Seahorse shape
-    noStroke();
-    fill(255, 200, 50); // Bright Yellow/Orange
-    
-    // Body (Curved)
-    rectMode(CENTER);
-    rect(0, 0, 15, 40, 10); 
-    
-    // Head
-    ellipse(5, -15, 25, 15);
-    
-    // Snout
-    rect(15, -15, 15, 5);
-    
-    // Eye
-    fill(0);
-    circle(8, -17, 3);
-    
-    // Fin (translucent)
-    fill(255, 255, 255, 150);
-    triangle(-5, 0, -15, -10, -15, 10);
-    pop();
+    translate(this.x + this.w / 2, this.y + this.h / 2);
 
-    if (!this.frozen) this.showAmmoBar();
+    imageMode(CENTER);
+    image(turtleImg, 0, 0, this.w, this.h);
+
+     pop();
+    super.showAmmoBar();
   }
 }
 

@@ -12,6 +12,8 @@ class Enemy {
     this.floatOffset = random(1000);
     this.floatSpeed = 0.05;
     this.shootTimer = int(random(60, 120));
+    this.vulnerable = false;
+    this.vulnTimer = 0;
   }
 
   update() {
@@ -21,6 +23,13 @@ class Enemy {
       return; 
     } else {
       this.stunned = false;
+    }
+    if (this.vulnTimer > 0) {
+      this.vulnTimer--;
+      this.vulnerable = true;
+      return; 
+    } else {
+      this.vulnerable = false;
     }
 
     this.floatOffset += this.floatSpeed;
@@ -60,6 +69,7 @@ class Enemy {
         if (Array.isArray(p.effects)) {
           for (let effect of p.effects) {
             if (effect.type === "stun") this.stunTimer = effect.duration;
+            if (effect.type === "vuln") this.vulnTimer = effect.duration;
           }
         }
 
@@ -71,6 +81,9 @@ class Enemy {
 
   takeDamage(dmg) {
     this.hp -= dmg;
+    if(this.vulnerable){
+      this.hp -= int(dmg*0.25);
+    }
     if (this.hp <= 0) this.alive = false;
   }
 
