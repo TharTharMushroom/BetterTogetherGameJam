@@ -318,7 +318,7 @@ class Anglerfish extends Player {
     translate(this.x + this.w / 2, this.y + this.h / 2);
 
     imageMode(CENTER);
-    image(shirtImg, 0, 0, this.w, this.h);
+    image(anglerImg, 0, 0, this.w, this.h);
 
      pop();
     super.showAmmoBar();
@@ -337,7 +337,7 @@ class AnglerLight extends Projectile {
     translate(this.x + this.r, this.y + this.r);
 
     imageMode(CENTER);
-    image(jellyShockImg, 0, 0, this.r*2, this.r*2);
+    image(anglerLightImg, 0, 0, this.r*2, this.r*2);
 
      pop();
   }
@@ -429,7 +429,6 @@ class FollowerFish {
     this.x = 0;
     this.y = 0;
 
-    // 🐟 real fish instance (visual + logic)
     this.fish = new FishClass();
     this.fish.frozen = true;
 
@@ -455,7 +454,6 @@ class FollowerFish {
   }
 
   shoot() {
-    // 💥 SAFE VERSION (no crashes)
     let oldX = this.fish.x;
     let oldY = this.fish.y;
 

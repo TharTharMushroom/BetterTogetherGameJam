@@ -19,6 +19,8 @@ function preload(){
     oilImg = loadImage('art/oilProj.png');
     jellyShockImg = loadImage('art/jellyShock.png');
     turtleImg = loadImage('art/turtle.png');
+    anglerImg = loadImage('art/anglerfish.png');
+    anglerLightImg = loadImage('art/anglerLight.png');
     bgImg = loadImage('art/background.png');
 }
 

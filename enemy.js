@@ -17,6 +17,7 @@ class Enemy {
   }
 
   update() {
+    this.checkHits();
     if (this.stunTimer > 0) {
       this.stunTimer--;
       this.stunned = true;
@@ -27,7 +28,6 @@ class Enemy {
     if (this.vulnTimer > 0) {
       this.vulnTimer--;
       this.vulnerable = true;
-      return; 
     } else {
       this.vulnerable = false;
     }
@@ -41,7 +41,7 @@ class Enemy {
       this.shootTimer = int(random(90, 150));
     }
 
-    this.checkHits();
+    
   }
 
   // --- THIS IS THE MISSING FUNCTION CAUSING THE CRASH ---
