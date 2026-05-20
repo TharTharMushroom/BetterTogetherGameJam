@@ -7,10 +7,14 @@ Survive increasingly difficult waves of enemy trash (bottles, shirts, and tires)
 
 Controls
 WASD/Arrow Keys - Player Movement
+
 Space/Enter - Hold to shoot projectiles from the main player
+
 Mouse Click - To start the game and click buttons
+
 R - Restart game after losing
 
 Credits
 Pixel art by Devin, Darsheel, and Rocco
+
 Pixel art made with https://www.pixilart.com/
