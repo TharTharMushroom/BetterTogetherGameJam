@@ -9,7 +9,7 @@ let availableFishClasses;
 let gameOver = false;
 
 const fishDescriptions = {
-  Clownfish:  "Fast, inacurrate bubbles. Great all-rounder.",
+  Clownfish:  "Fast, inaccurate bubbles. Great all-rounder.",
   Tuna:       "Slow, large, and powerful blasts. Great single-target.",
   Jellyfish:  "Stuns enemies on hit, stopping them from firing and moving. Great disruptor.",
   Mackerel:   "Triple spread shot. Great crowd control.",
