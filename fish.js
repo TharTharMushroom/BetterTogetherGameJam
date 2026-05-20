@@ -80,7 +80,7 @@ class Player {
     pop();
   }
 
-  show() {
+  show(tintNum) {
     fill(255, 100, 100);
     rect(this.x, this.y, this.w, this.h);
     this.showAmmoBar();
@@ -151,10 +151,10 @@ class Clownfish extends Player {
     projectiles.push(p);
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(clownfishImg, 0, 0, this.w, this.h);
 
@@ -208,10 +208,10 @@ class Tuna extends Player {
     projectiles.push(p);
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(tunaImg, 0, 0, this.w, this.h);
 
@@ -223,16 +223,14 @@ class Tuna extends Player {
 class TunaBlast extends Projectile {
   constructor(x, y, angle, maxDist, speed) {
     super(x, y, angle, maxDist, speed);
-    this.r = 20;
-    this.damage = 10;
+    this.r = 26;
+    this.damage = 20;
   }
 
   show() {
     fill(180, 180, 255, 180);
     circle(this.x, this.y, this.r);
   }
-
-  // later: explode into AOE damage
 }
 
 class Jellyfish extends Player {
@@ -259,10 +257,10 @@ class Jellyfish extends Player {
     projectiles.push(p);
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(jellyfishImg, 0, 0, this.w, this.h);
 
@@ -307,16 +305,16 @@ class Anglerfish extends Player {
       this.x + this.w / 2,
       this.y + this.h / 2,
       0,
-      400,
+      500,
       4
     );
     projectiles.push(p);
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(anglerImg, 0, 0, this.w, this.h);
 
@@ -329,7 +327,7 @@ class AnglerLight extends Projectile {
   constructor(x, y, angle, maxDist, speed) {
     super(x, y, angle, maxDist, speed);
     this.effects.push(new StatusEffect("vuln", 240)); 
-    this.r = 12;
+    this.r = 14;
   }
 
   show() {
@@ -362,10 +360,10 @@ class Mackerel extends Player {
     }
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(mackerelImg, 0, 0, this.w, this.h);
 
@@ -389,10 +387,10 @@ class Turtle extends Player {
     Player.shield += 10;
   }
 
-  show() {
+  show(tintNum) {
     push();
     translate(this.x + this.w / 2, this.y + this.h / 2);
-
+    tint(tintNum);
     imageMode(CENTER);
     image(turtleImg, 0, 0, this.w, this.h);
 
@@ -479,6 +477,6 @@ class FollowerFish {
   show() {
     this.fish.x = this.x;
     this.fish.y = this.y;
-    this.fish.show();
+    this.fish.show(140);
   }
 }

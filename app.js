@@ -8,6 +8,24 @@ let choiceOptions = [];
 let availableFishClasses;
 let gameOver = false;
 
+const fishDescriptions = {
+  Clownfish:  "Fast, inacurrate bubbles. Great all-rounder.",
+  Tuna:       "Slow, large, and powerful blasts. Great single-target.",
+  Jellyfish:  "Stuns enemies on hit, stopping them from firing and moving. Great disruptor.",
+  Mackerel:   "Triple spread shot. Great crowd control.",
+  Turtle:     "Grants a small hp shield at certain intervals, but does not shoot. Great defensive support.",
+  Anglerfish: "Inflicts vulnerability, making enemies receive bonus damage. Great offensive support.",
+};
+
+const fishImages = {
+  Clownfish:  () => clownfishImg,
+  Tuna:       () => tunaImg,
+  Jellyfish:  () => jellyfishImg,
+  Mackerel:   () => mackerelImg,
+  Turtle:     () => turtleImg,
+  Anglerfish: () => anglerImg,
+};
+
 function preload(){
     clownfishImg = loadImage('art/clownfish.png');
     jellyfishImg = loadImage('art/jellyfish.png');
@@ -74,7 +92,7 @@ function draw() {
   drawUI();
 
   player.update();
-  player.show();
+  player.show(255);
 
   // Projectile loop
   for (let i = projectiles.length - 1; i >= 0; i--) {
@@ -192,51 +210,123 @@ function prepareSelection() {
   choiceOptions = [];
   
   // Pick 2 unique random fish classes from our list
-  let shuffled = availableFishClasses.sort(() => 0.5 - random());
+  let shuffled = shuffle(availableFishClasses);
   choiceOptions = [shuffled[0], shuffled[1]];
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function showSelectionScreen() {
-  fill(0, 150);
+  fill(0, 170);
   rect(width / 2, height / 2, width, height);
 
   fill(255);
   textAlign(CENTER);
-  textSize(30);
-  text("WAVE CLEARED!", width / 2, height / 2 - 100);
-  textSize(20);
-  text("Choose a new helper fish:", width / 2, height / 2 - 60);
+  textSize(32);
+  textStyle(BOLD);
+  text("WAVE CLEARED!", width / 2, height / 2 - 120);
+  textStyle(NORMAL);
+  textSize(16);
+  fill(180, 230, 255);
+  text("Choose a new ally fish:", width / 2, height / 2 - 85);
 
-  // Draw two buttons/boxes for choices
+  let cardW = 170;
+  let cardH = 200;
+  let gap = 30;
+  let totalW = choiceOptions.length * cardW + (choiceOptions.length - 1) * gap;
+  let startX = width / 2 - totalW / 2 + cardW / 2;
+
   for (let i = 0; i < choiceOptions.length; i++) {
-    let x = width / 2 - 100 + (i * 200);
-    let y = height / 2;
-    
-    fill(255, 200);
-    if (mouseX > x - 80 && mouseX < x + 80 && mouseY > y - 50 && mouseY < y + 50) {
-      fill(255); // Highlight on hover
-    }
-    rect(x, y, 160, 100, 10);
-    
-    fill(0);
-    text(choiceOptions[i].name, x, y + 5);
+    let x = startX + i * (cardW + gap);
+    let y = height / 2 + 30;
+    let hovered = mouseX > x - cardW / 2 && mouseX < x + cardW / 2 &&
+                  mouseY > y - cardH / 2 && mouseY < y + cardH / 2;
+    drawFishCard(x, y, cardW, cardH, choiceOptions[i], hovered);
   }
 }
 
-function mousePressed() {
-  // START -> PLAYING
-  if (gameState === "START") {
-    gameState = "PLAYING";
-    return; // Stop here so we don't accidentally click a selection button
+function drawFishCard(x, y, cardW, cardH, FishClass, hovered) {
+  let name = FishClass.name;
+  let desc = fishDescriptions[name] || "A mysterious fish.";
+  let img  = fishImages[name] ? fishImages[name]() : null;
+
+  push();
+  rectMode(CENTER);
+
+  // Drop shadow
+  fill(0, 100);
+  noStroke();
+  rect(x + 4, y + 6, cardW, cardH, 14);
+
+  // Card background
+  if (hovered) {
+    fill(180, 230, 255, 230);
+    stroke(100, 210, 255);
+    strokeWeight(3);
+  } else {
+    fill(10, 40, 80, 210);
+    stroke(60, 140, 200, 180);
+    strokeWeight(1.5);
+  }
+  rect(x, y, cardW, cardH, 12);
+
+  // Fish image
+  let imgSize = 64;
+  let imgY = y - cardH / 2 + imgSize / 2 + 14;
+  if (img) {
+    imageMode(CENTER);
+    image(img, x, imgY, imgSize, imgSize);
   }
 
-  // Existing SELECTING logic
+  // Name
+  noStroke();
+  textAlign(CENTER);
+  textSize(15);
+  textStyle(BOLD);
+  fill(hovered ? color(20, 60, 100) : color(220, 230, 255));
+  text(name, x, imgY + imgSize / 2 + 18);
+
+  // Divider
+  stroke(hovered ? color(80, 160, 220) : color(60, 100, 160));
+  strokeWeight(1);
+  line(x - cardW / 2 + 16, imgY + imgSize / 2 + 26,
+       x + cardW / 2 - 16, imgY + imgSize / 2 + 26);
+
+  // Description
+  noStroke();
+  textStyle(NORMAL);
+  textSize(11);
+  fill(hovered ? color(30, 80, 120) : color(160, 200, 240));
+  text(desc, x, imgY + imgSize / 2 + 64, cardW - 20, 60);
+
+  pop();
+}
+
+function mousePressed() {
+  if (gameState === "START") {
+    gameState = "PLAYING";
+    return;
+  }
+
   if (gameState === "SELECTING") {
+    let cardW = 170;
+    let cardH = 200;
+    let gap = 30;
+    let totalW = choiceOptions.length * cardW + (choiceOptions.length - 1) * gap;
+    let startX = width / 2 - totalW / 2 + cardW / 2;
+
     for (let i = 0; i < choiceOptions.length; i++) {
-      let x = width / 2 - 100 + (i * 200);
-      let y = height / 2;
-      
-      if (mouseX > x - 80 && mouseX < x + 80 && mouseY > y - 50 && mouseY < y + 50) {
+      let x = startX + i * (cardW + gap);
+      let y = height / 2 + 10;
+
+      if (mouseX > x - cardW / 2 && mouseX < x + cardW / 2 &&
+          mouseY > y - cardH / 2 && mouseY < y + cardH / 2) {
         addFollower(choiceOptions[i]);
         gameState = "PLAYING";
         spawnWave();
@@ -255,7 +345,7 @@ function showStartScreen() {
   
   // Title
   textSize(60);
-  text("FISHING FRENZY", width / 2, height / 2 - 50);
+  text("FISHY FRENZY", width / 2, height / 2 - 50);
   
   // Instructions
   textSize(20);
