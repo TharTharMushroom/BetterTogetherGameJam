@@ -5,22 +5,20 @@ A wave-based arcade shooter built with p5.js. Play as a clownfish defending the 
 
 Gameplay
 
-Survive increasingly difficult waves of enemy trash (bottles, shirts, and tires). After each wave, choose a new ally fish that orbits you and fights alongside you. How long can you last?
+- Survive increasingly difficult waves against hordes of pollution enemies
+- After each wave, choose a new ally fish that orbits you and fights alongside you
+- Find out how many waves you can last!
 
 
 Controls
 
-WASD/Arrow Keys - Player Movement
-
-Space/Enter - Hold to shoot projectiles from the main player
-
-Mouse Click - To start the game and click buttons
-
-R - Restart game after losing
+- WASD/Arrow Keys - Player Movement
+- Space/Enter - Hold to shoot projectiles from the main player
+- Mouse Click - To start the game and click buttons
+- R - Restart game after losing
 
 
 Credits
 
-Pixel art by Devin, Darsheel, and Rocco
-
-Pixel art made with https://www.pixilart.com/
+- Pixel art by Devin, Darsheel, and Rocco
+- Pixel art made with https://www.pixilart.com/
