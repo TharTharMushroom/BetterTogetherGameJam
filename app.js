@@ -350,7 +350,7 @@ function showStartScreen() {
   // Instructions
   textSize(20);
   text("WASD or Arrows to Move", width / 2, height / 2 + 20);
-  text("Space or Enter to Shoot", width / 2, height / 2 + 50);
+  text("Hold Space or Enter to Shoot", width / 2, height / 2 + 50);
   
   // Prompt
   textSize(25);
